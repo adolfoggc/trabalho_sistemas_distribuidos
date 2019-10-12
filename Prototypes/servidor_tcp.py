@@ -9,14 +9,12 @@ def turn_on(PORT):
 	orig = (HOST, PORT)
 	tcp.bind(orig)
 	tcp.listen(1)
-	print 'Iniciando servidor na porta', PORT
+	print 'Gateway iniciado na porta', PORT
 	reqnum = 0
 	starting_time = datetime.datetime.now()
     #starting_time = datetime.strptime(starting_time, '%H:%M:%S')
 	while True:
 	    con, cliente = tcp.accept()
-	    print 'Concetado por', cliente
-	    con.send('Bem-vindo, meu citoplasma!')
 	    while True:
 	        msg = con.recv(1024)
 	        if not msg: break
@@ -29,8 +27,8 @@ def turn_on(PORT):
 	        	print 'UPTIME de', cliente
 	        	con.send(str(datetime.datetime.now() - starting_time))
 	        elif(msg == '\CLOSE'):
-						print 'Finalizando conexao do cliente', cliente
-						con.send(str('Bye bye, jovem padawan'))
+						print 'Closing connection...', cliente
+						con.send(str('Closing connection...'))
        	
 	    #print 'Finalizando conexao do cliente', cliente
 	    con.close()
